@@ -1,0 +1,123 @@
+{%- capture section_settings -%}
+{
+  "type": {{ settings.cart_type | json }},
+  "itemCount": {{ cart.item_count }},
+  "drawer": true,
+  "hasShippingEstimator": false
+}
+{%- endcapture -%}
+
+<div id="sidebar-cart" class="Drawer Drawer--fromRight" aria-hidden="true" data-section-id="cart" data-section-type="cart" data-section-settings='{{ section_settings }}'>
+  <div class="Drawer__Header Drawer__Header--bordered Drawer__Container">
+      <span class="Drawer__Title Heading u-h4">{{ 'cart.general.title' | t }}</span>
+
+      <button class="Drawer__Close Icon-Wrapper--clickable" data-action="close-drawer" data-drawer-id="sidebar-cart" aria-label="{{ 'header.navigation.close_cart' | t }}">
+        {%- render 'icon' with 'close' -%}
+      </button>
+  </div>
+
+  <form class="Cart Drawer__Content" form action="/checkout" method="POST" novalidate>
+    <div class="Drawer__Main" data-scrollable>
+     
+      
+<div style="text-align: center;">
+	<table style="margin-left: auto; margin-right: auto; max-width:100%;">
+	<tbody>
+		<tr>
+			<td>
+              <a href="https://boniik.com.au/collections/all">
+                <img src="https://cdn.shopify.com/s/files/1/0085/4327/3020/files/TFS_RN_Mask_Sheet_Set_Cart_Slider_400_x_150.png?v=1675114489" alt="FREE 10 pcs Real Nature Mask Sheet Set (Ends Mon 06 Feb) (Online Only)| BONIIK Korean Skin Care" >
+              </a>
+            </td>
+  		</tr>
+ 	</tbody>
+  	</table>
+<!--<span>Use code: <strong>SUN</strong> at checkout!</span>-->
+        <i style="font-size:13px !important;">
+          <p style="margin-bottom: 0.2rem !important; line-height: 1.2rem !important; color: #444444 !important;"> *Valid online only. Ends Mon 6 Feb 2023, 11:59pm AEDT. <a href="https://boniik.com.au/blogs/offers/free-real-nature-mask-sheet-set" target="_blank" style="text-decoration:underline;"> T&Cs Apply.</a></i>
+      <p class="cart-cc-giftwrap" style="font-size:14px !important;">
+        Read here for <a href="/pages/boniik-click-collect" style="color:#95B4D7;" target="_blank">Click & Collect</a> // <a href="/products/gift-wrap" style="color:#95B4D7;" target="_blank">Gift Wrapping</a>
+      </p>      
+</div>
+
+      {%- if cart.item_count == 0 -%}
+        <p class="Cart__Empty Heading u-h5">{{ 'cart.general.empty' | t }}<br><a href="/pages/footer-shipping" style="font-size:14px !important;">Only $55 away from free shipping!</a></p>
+
+
+        
+      {%- else -%}
+        <div class="Drawer__Container">
+
+          <input type="hidden" name="attributes[collection_mobile_items_per_row]" value="">
+          <input type="hidden" name="attributes[collection_desktop_items_per_row]" value="">
+
+          {% render 'cart-items' %}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- unless cart.item_count == 0 -%}
+      <div class="Drawer__Footer" data-drawer-animated-bottom>
+        {%- capture shipping_and_taxes_notice -%}{{ 'cart.general.shipping_and_taxes_notice' | t }}{%- endcapture -%}
+
+        {%- if settings.cart_enable_notes or shipping_and_taxes_notice != blank -%}
+          {%- if settings.cart_enable_notes -%}
+            {%- if cart.note == blank -%}
+              <button type="button" class="Cart__AddOrderNoteButton" data-action="toggle-cart-note" style="float: right;">{{ 'cart.general.add_note' | t }}</button>
+            {%- else -%}
+              <button type="button" class="Cart__NoteButton" data-action="toggle-cart-note">{{ 'cart.general.edit_note' | t }}</button>
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if shipping_and_taxes_notice != blank -%}
+            <p class="cart_right_drawer Text--subdued" style="font-size:14px !important; color: #444444 !important;">{{ shipping_and_taxes_notice }}</p>
+          {%- endif -%}
+
+          {%- if cart.cart_level_discount_applications != blank -%}
+            {%- for discount_application in cart.cart_level_discount_applications -%}
+              <p class="Cart__Discount">{%- render 'icon' with 'sale' -%} {{ 'cart.general.discount' | t }} ({{ discount_application.title }}): -<span>{{ discount_application.total_allocated_amount | money }}</span></p>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endif -%}
+
+ {%- if settings.cart_show_free_shipping_threshold -%}
+        {%- assign threshold_in_cents = settings.cart_free_shipping_threshold | times: 100 -%}
+
+        <div class="cart_right_drawer Text--subdued">
+         
+            {%- if cart.total_price >= threshold_in_cents -%}
+            <p style="font-size:14px !important; color: #444444 !important;">{{- 'cart.general.free_shipping' | t -}}</p>
+            {%- else -%}
+              {%- capture remaining_amount -%}<span style="font-weight: bold !important;">{{ cart.total_price | minus: threshold_in_cents | abs | money }}</span>{%- endcapture -%}
+              <p style="font-size:14px !important;  color: #444444 !important;">{{- 'cart.general.free_shipping_remaining_html' | t: remaining_amount: remaining_amount -}}</p>
+            {%- endif -%}
+      
+        </div>
+      {%- endif -%}
+
+        <button type="submit" name="checkout" class="Cart__Checkout Button Button--primary Button--full">
+          <span>{{- 'cart.general.checkout' | t -}}</span>
+          <span class="Button__SeparatorDot"></span>
+          <span>{{ cart.total_price | money_without_trailing_zeros }}</span>
+        </button>
+
+        {%- if settings.cart_enable_notes -%}
+          <div class="Cart__OffscreenNoteContainer" aria-hidden="true">
+            {%- if cart.note == blank -%}
+              <span class="Cart__NoteButton">{{ 'cart.general.add_note' | t }}</span>
+            {%- else -%}
+              <span class="Cart__NoteButton">{{ 'cart.general.edit_note' | t }}</span>
+            {%- endif -%}
+
+            <div class="Form__Item">
+              
+              <textarea class="Cart__Note Form__Textarea" name="note" id="cart-note" rows="3" placeholder="{{ 'cart.general.note_placeholder' | t }}" data-scrollable>{{ cart.note }}</textarea>
+            </div>
+
+            <button type="button" class="Button Button--primary Button--full" data-action="toggle-cart-note">{{ 'cart.general.save_note' | t }}</button>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endunless -%}
+  </form>
+</div>

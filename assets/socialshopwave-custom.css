@@ -1,0 +1,162 @@
+@media only screen and (min-width: 476px) {
+  .ssw-fave-item__changelist.ssw-fave-item__changelist--page {
+    display: flex;
+    justify-content: space-around;
+  } 
+}
+
+@media only screen and (max-width: 475px) and (min-width: 419px) {
+  .ssw-fave-item__changelist.ssw-fave-item__changelist--page {
+    height: 67px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+  } 
+}
+
+@media only screen and (max-width: 419px) {
+  .ssw-fave-item__changelist.ssw-fave-item__changelist--page {
+    height: 67px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+  } 
+}
+
+.ssw-fave-item__button-delete.button.btn.gw-btn-bg,
+.ssw-fave-item__button-move.btn-move.button.btn.gw-btn-bg.gw-fsize-sm.gw-wishlist-btn { /* EDIT AND DELETE MOBILE */
+  line-height: 0;
+}
+
+.ssw-fave-item {
+  z-index: unset !important;
+}
+
+@media only screen and (max-width: 544px) {
+  .ssw-product-variants-title {
+    display: inline-block; 
+  }
+}
+
+#widget-fave-html {
+  margin-top: 10px;
+}
+
+#widget-fave-html .ssw-fave-btn {  /*input textarea*/
+  height: 48.4px;
+}
+
+#widget-fave-html .ssw-fave-btn-content { /* pages/product/buttonContent(fave button) */
+  background-color: #95b3d7;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: calc(var(--base-text-font-size) - (var(--default-text-font-size) - 12px));
+  letter-spacing: .2em;
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+} 
+
+#widget-fave-html .ssw-fave-btn-counter {
+  background-color: #95b3d7;
+  color: #fff;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: calc(var(--base-text-font-size) - (var(--default-text-font-size) - 12px));
+  letter-spacing: .2em;
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+}
+
+#widget-fave-html .ssw-fave-btn-counter:before { /* pages/product(fave button) */
+  background-color: #95b3d7;
+}
+
+#widget-fave-html .ssw-fave-btn .ssw-fave-btn-content .ssw-icon-heart-o:before,
+#widget-fave-html .ssw-fave-btn .ssw-fave-btn-content .ssw-icon-heart:before {
+  color: #fff;
+}
+
+.ssw-faveiticon {
+  right: 5px !important;
+}
+
+.ssw-add-to-cart-dialog .ssw-variant-option-value {
+  margin: 10px 0;
+}
+
+#favesshare_button,
+.ssw-product-variant-add-to-cart.btn.button {
+  padding: 10px;
+  background: #95b3d7;
+  color: #fff;
+}
+
+#ssw-edit-profile-form .ssw-phone__button {
+  left: 7px;
+}
+
+
+.ssw-fave-item__button-move.btn-move.button.btn {
+  background: #95b4d6;
+  color: #fff;
+} 
+
+.ssw-fave-item__button-delete.button.btn {
+  background: #f36e6e;
+  color: #fff;
+}
+
+.ssw-reward-tab-title {
+  font-size: 18px;
+}
+
+.ssw-reward-box-top-title{
+  font-size: 18px;
+}
+
+
+.ssw-reward-tab-closed {
+  border: 2px solid #95B3D7
+}
+
+.ssw-reward-box-text {
+  font-size: 18px;
+}
+
+#ssw-reward-box .ssw-reward-box-earning-rule-title+.ssw-reward-box-text, #ssw-reward-box .ssw-reward-redeem-info, #ssw-reward-box .ssw-reward-user-reward-expire, #ssw-reward-box .ssw-reward-user-reward-info{
+  font-size: 14px;
+}
+
+.ssw-reward-quest-btn{
+  font-size: 12px;
+  border-radius: 0px;
+}
+
+
+.ssw-reward-box-vip-tiers-status{
+  font-size: 14px;
+}
+
+.ssw-reward-box-tier .ssw-reward-box-vip-tiers-status-title{
+  font-size: 12px;
+  border-radius: 0px;
+}
+
+#ssw-fave-side-button>.ssw-fave-caption{
+  height:45px;
+  border: 2px solid #95b3d7;
+}
+
+@media screen and (max-width: 480px){
+  #ssw-fave-side-button>.ssw-fave-caption {
+    border-left: 2px solid #95b3d7 !important;
+    width: 43px;
+  }
+}
+
+#ssw-fave-side-button>.ssw-fave-caption {
+  font-size: 15px;
+}
