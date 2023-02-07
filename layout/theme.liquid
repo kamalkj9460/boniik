@@ -1,37 +1,32 @@
 <!doctype html>
-
 <html class="no-js" lang="{{ request.locale.iso_code }}">
-  <head>
-    
-
-      
-    <!-- Global site tag (gtag.js) - Google Analytics NEW-->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BYNHV33D6G"></script>
-<script>
+<head>
+{% render "theme-css" %}
+{% render "custom-css" %}
+{% render "font-css" %}
+<!-- Global site tag (gtag.js) - Google Analytics NEW-->
+<script type="lazyload2" data-src="https://www.googletagmanager.com/gtag/js?id=G-BYNHV33D6G"></script>
+<script type="lazyload2">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-BYNHV33D6G');
 </script>
-    
-
 
     <!-- PINTEREST ================================================= -->
     <meta name="p:domain_verify" content="bbdc0ec2095c21bd42496fbcd4e5645b"/>
     <!-- FACEBOOK ================================================== -->
     <meta name="facebook-domain-verification" content="m93gd8lm05gc7f39e3qb91uxlvj62f" />
-        
     <!-- GMC END -->
     <!-- FBT-->
-    <script src="//cdn.codeblackbelt.com/js/modules/frequently-bought-together/main.min.js?shop=boniik.myshopify.com" defer></script>
+    <script type="lazyload2" data-src="//cdn.codeblackbelt.com/js/modules/frequently-bought-together/main.min.js?shop=boniik.myshopify.com" defer></script>
     <!-- FBT-->
-    
     <!-- KLAVIYO POPUP ================================================== -->      
-<script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=XxZe5y"></script>
-    	<!-- KLAVIYO Back In stock ================================================== -->    
-<script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
-<script>
+    <script type="lazyload2" data-src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=XxZe5y"></script>
+    <script type="lazyload2">!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();</script>
+    <!-- KLAVIYO Back In stock ================================================== -->    
+    <script type="lazyload2" data-src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
+<script type="lazyload2">
     var klaviyo = klaviyo || [];
     klaviyo.init({
         account: 'XxZe5y',
@@ -72,10 +67,7 @@
     }
 });
 </script>
-    
-
     <!-- KLAVIYO END -->
-    
     <meta charset="utf-8"> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.0">
@@ -99,9 +91,15 @@
     {% render 'social-meta-tags' %}
     {% render 'css-variables' %}
 
-    {{ content_for_header }}
-
-    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+    {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+    	{{ content_for_header }}
+        {%- else -%}
+    	{% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+    	{{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload2" ' | replace: " src=", " data-src=" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('wnw_load', asyncLoad, false);" | replace: "DOMContentLoaded", "DOMContentLoaded2" | replace: "addEventListener('load', prefetchAssets);", "addEventListener('w3-DOMContentLoaded', prefetchAssets);" }}
+    	<script>var trekkie=[];trekkie.integrations=!0;window.BOOMR={},window.BOOMR.version=true;</script>
+    {%- endif -%}
+    <link rel="stylesheet" href="{{ 'font.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'theme.css' | asset_url }}">
 
     <script>
       {%- if request.page_type == 'policy' -%}
@@ -172,16 +170,16 @@
       {% endif %}
     </script>
 
-    <script src="{{ 'lazysizes.min.js' | asset_url }}" async></script>
+    <script type="lazyload2" data-src="{{ 'lazysizes.min.js' | asset_url }}"></script>
 
     {%- if template == 'customers/addresses' -%}
       <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
       <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
     {%- endif -%}
 
-    <script src="{{ 'libs.min.js' | asset_url }}" defer></script>
-    <script src="{{ 'theme.js' | asset_url }}" defer></script>
-    <script src="{{ 'custom.js' | asset_url }}" defer></script>
+    <script type="lazyload2" data-src="{{ 'libs.min.js' | asset_url }}"></script>
+    <script type="lazyload2" data-src="{{ 'theme.js' | asset_url }}"></script>
+    <script type="lazyload2" data-src="{{ 'custom.js' | asset_url }}"></script>
 
     <script>
       (function () {
@@ -261,14 +259,18 @@
       {% section 'header' %}
 
       <main id="main" role="main">
-        {{ content_for_layout }}
+            {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+            	{{ content_for_layout }}
+            {%- else -%}
+            	{% capture content_for_layout2 %}{{ content_for_layout }}{% endcapture %}
+            	{{ content_for_layout2 | replace: 'src="https://www.youtube.com/', 'data-src="https://www.youtube.com/'  }}
+            {%- endif -%}
       </main>
 
       {% section 'footer' %}
     </div>
     
     <!-- GW Integration for filter -->
-
 
     <script>
       window.addEventListener('sswhelperload', () => {
@@ -322,19 +324,26 @@
             }, 1000);
           });
         }
-      })
-      
+      })   
     </script>
-
-
     
-  <!-- This line added automatically by JSON-LD for SEO. -->{% include 'jsonld-for-seo' %}
-    
-    
-   
-
- 
-    
+  <!-- This line added automatically by JSON-LD for SEO. -->
+  {% include 'jsonld-for-seo' %}
+      <script type="lazyload2" data-src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  	  <script>
+      	var site_nav_link_burger = true;
+      	document.addEventListener("DOMContentLoaded", function() {
+            var header__icon_menu = document.querySelector(".Header__Icon");
+            header__icon_menu.addEventListener("click", function() {
+      			if(site_nav_link_burger) {
+      				event.preventDefault();
+      				site_nav_link_burger = false;
+      			}
+      		});
+      	})
+      </script>
+  {% render 'app-block' %}
+  {{ 'wnw-optimization.js' | asset_url | script_tag }}
 </body>
 </html>
 

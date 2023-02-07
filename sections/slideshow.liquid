@@ -28,9 +28,9 @@
           {%- if mobile_image -%}
             <div class="Slideshow__ImageContainer {% if block.settings.apply_overlay %}Image--contrast{% endif %} {% unless section.settings.show_fullscreen %}AspectRatio{% endunless %} hidden-tablet-and-up"
                  style="{% unless section.settings.show_fullscreen %}--aspect-ratio: {{ mobile_image.aspect_ratio }};{% endunless %} background-image: url({{ mobile_image | img_url: '1x1', format: 'jpg' }})">
-                <img class="Slideshow__Image Image--lazyLoad"
-                     src="{{ mobile_image | img_url: '1x1' }}"
-                     data-src="{{ mobile_image | img_url: 'x800' }}"
+                <img class="Slideshow__Image Image--lazyLoaded lazy2 lazy3"
+                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                     data-src="{{ mobile_image | img_url: 'x480' }}"
                      alt="{{ mobile_image.alt | escape }}">
 
                 <noscript>
@@ -44,8 +44,9 @@
                  style="{% unless section.settings.show_fullscreen %}padding-bottom: {{ 100.0 | divided_by: block.settings.image.aspect_ratio }}%; --aspect-ratio: {{ block.settings.image.aspect_ratio }};{% endunless %} background-image: url({{ block.settings.image | img_url: '1x1', format: 'jpg' }})">
               {% assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
 
-              <img class="Slideshow__Image Image--lazyLoad hide-no-js"
-                   data-src="{{ image_url }}"
+              <img class="Slideshow__Image Image--lazyLoaded hide-no-js lazy2 lazy3"
+                   src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                   data-src="{{ block.settings.image | img_url: '2048x' }}"
                    data-optimumx="1.2"
                    data-widths="[400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200]"
                    data-sizes="auto"

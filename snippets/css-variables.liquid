@@ -3,12 +3,6 @@
 {%- assign text_font_bold_italic = text_font_bold | font_modify: 'style', 'italic' -%}
 
 <style>
-  {{ settings.heading_font | font_face: font_display: 'fallback' }}
-  {{ settings.text_font | font_face: font_display: 'fallback' }}
-
-  {{ text_font_bold | font_face: font_display: 'fallback' }}
-  {{ text_font_italic | font_face: font_display: 'fallback' }}
-  {{ text_font_bold_italic | font_face: font_display: 'fallback' }}
 
   :root {
     --heading-font-family : {{settings.heading_font.family}}, {{ settings.heading_font.fallback_families }};
